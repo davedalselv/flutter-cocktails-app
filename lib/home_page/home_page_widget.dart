@@ -9,14 +9,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key? key}) : super(key: key);
+  HomePageWidget({Key key}) : super(key: key);
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  TextEditingController? textController;
+  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -26,16 +26,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   @override
-  void dispose() {
-    textController?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
+      backgroundColor: FlutterFlowTheme.secondaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -55,14 +49,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: Text(
                               'Welcome to this new cocktail list',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF090F13),
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Roboto',
+                                color: Color(0xFF090F13),
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Padding(
@@ -76,15 +68,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               child: Text(
                                 'What are you looking for?',
                                 textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Open Sans',
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
@@ -111,15 +100,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 SearchResultsPageWidget(
-                                              searchTerm: textController!.text,
+                                              searchTerm: textController.text,
                                             ),
                                           ),
                                         );
                                       },
                                       child: Icon(
                                         Icons.search,
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiaryColor,
+                                        color: FlutterFlowTheme.tertiaryColor,
                                         size: 24,
                                       ),
                                     ),
@@ -128,7 +116,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 0, 0),
                                         child: TextFormField(
-                                          controller: textController,
                                           onFieldSubmitted: (_) async {
                                             await Navigator.push(
                                               context,
@@ -136,14 +123,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 builder: (context) =>
                                                     SearchResultsPageWidget(
                                                   searchTerm:
-                                                      textController!.text,
+                                                      textController.text,
                                                 ),
                                               ),
                                             );
                                           },
+                                          controller: textController,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             hintText: 'Search name...',
+                                            hintStyle: GoogleFonts.getFont(
+                                              'Roboto',
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
+                                              fontSize: 16,
+                                            ),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0x00000000),
@@ -166,39 +160,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
                                           ),
                                           style: GoogleFonts.getFont(
                                             'Roboto',
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
+                                            color:
+                                                FlutterFlowTheme.tertiaryColor,
                                             fontSize: 16,
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -215,15 +186,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               child: Text(
                                 'Recommendations',
                                 textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Open Sans',
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
@@ -246,8 +214,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5, 5, 5, 5),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: GetDrinkByIdCall.call(
+                                  child: FutureBuilder<dynamic>(
+                                    future: getDrinkByIdCall(
                                       i: '11000',
                                     ),
                                     builder: (context, snapshot) {
@@ -258,16 +226,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 50,
                                             height: 50,
                                             child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                               size: 50,
                                             ),
                                           ),
                                         );
                                       }
                                       final cardGetDrinkByIdResponse =
-                                          snapshot.data!;
+                                          snapshot.data;
                                       return InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -292,9 +259,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           child: CachedNetworkImage(
                                             imageUrl: getJsonField(
-                                              cardGetDrinkByIdResponse.jsonBody,
-                                              r'''$.drinks[:1].strDrinkThumb''',
-                                            ),
+                                                cardGetDrinkByIdResponse,
+                                                r'''$.drinks[:1].strDrinkThumb'''),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -307,8 +273,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5, 5, 5, 5),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: GetDrinkByIdCall.call(
+                                  child: FutureBuilder<dynamic>(
+                                    future: getDrinkByIdCall(
                                       i: '11005',
                                     ),
                                     builder: (context, snapshot) {
@@ -319,16 +285,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 50,
                                             height: 50,
                                             child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                               size: 50,
                                             ),
                                           ),
                                         );
                                       }
                                       final cardGetDrinkByIdResponse =
-                                          snapshot.data!;
+                                          snapshot.data;
                                       return InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -353,9 +318,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           child: Image.network(
                                             getJsonField(
-                                              cardGetDrinkByIdResponse.jsonBody,
-                                              r'''$.drinks[:1].strDrinkThumb''',
-                                            ),
+                                                cardGetDrinkByIdResponse,
+                                                r'''$.drinks[:1].strDrinkThumb'''),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -368,8 +332,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5, 5, 5, 5),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: GetDrinkByIdCall.call(
+                                  child: FutureBuilder<dynamic>(
+                                    future: getDrinkByIdCall(
                                       i: '11006',
                                     ),
                                     builder: (context, snapshot) {
@@ -380,16 +344,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 50,
                                             height: 50,
                                             child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                               size: 50,
                                             ),
                                           ),
                                         );
                                       }
                                       final cardGetDrinkByIdResponse =
-                                          snapshot.data!;
+                                          snapshot.data;
                                       return InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -414,9 +377,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           child: Image.network(
                                             getJsonField(
-                                              cardGetDrinkByIdResponse.jsonBody,
-                                              r'''$.drinks[:1].strDrinkThumb''',
-                                            ),
+                                                cardGetDrinkByIdResponse,
+                                                r'''$.drinks[:1].strDrinkThumb'''),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -429,8 +391,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5, 5, 5, 5),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: GetDrinkByIdCall.call(
+                                  child: FutureBuilder<dynamic>(
+                                    future: getDrinkByIdCall(
                                       i: '11007',
                                     ),
                                     builder: (context, snapshot) {
@@ -441,16 +403,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 50,
                                             height: 50,
                                             child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                               size: 50,
                                             ),
                                           ),
                                         );
                                       }
                                       final cardGetDrinkByIdResponse =
-                                          snapshot.data!;
+                                          snapshot.data;
                                       return InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -475,9 +436,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           child: Image.network(
                                             getJsonField(
-                                              cardGetDrinkByIdResponse.jsonBody,
-                                              r'''$.drinks[:1].strDrinkThumb''',
-                                            ),
+                                                cardGetDrinkByIdResponse,
+                                                r'''$.drinks[:1].strDrinkThumb'''),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -490,8 +450,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5, 5, 5, 5),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: GetDrinkByIdCall.call(
+                                  child: FutureBuilder<dynamic>(
+                                    future: getDrinkByIdCall(
                                       i: '11001',
                                     ),
                                     builder: (context, snapshot) {
@@ -502,16 +462,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 50,
                                             height: 50,
                                             child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                               size: 50,
                                             ),
                                           ),
                                         );
                                       }
                                       final cardGetDrinkByIdResponse =
-                                          snapshot.data!;
+                                          snapshot.data;
                                       return InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -536,9 +495,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           child: Image.network(
                                             getJsonField(
-                                              cardGetDrinkByIdResponse.jsonBody,
-                                              r'''$.drinks[:1].strDrinkThumb''',
-                                            ),
+                                                cardGetDrinkByIdResponse,
+                                                r'''$.drinks[:1].strDrinkThumb'''),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -551,8 +509,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5, 5, 5, 5),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: GetDrinkByIdCall.call(
+                                  child: FutureBuilder<dynamic>(
+                                    future: getDrinkByIdCall(
                                       i: '11008',
                                     ),
                                     builder: (context, snapshot) {
@@ -563,16 +521,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 50,
                                             height: 50,
                                             child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                               size: 50,
                                             ),
                                           ),
                                         );
                                       }
                                       final cardGetDrinkByIdResponse =
-                                          snapshot.data!;
+                                          snapshot.data;
                                       return InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -597,9 +554,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           child: Image.network(
                                             getJsonField(
-                                              cardGetDrinkByIdResponse.jsonBody,
-                                              r'''$.drinks[:1].strDrinkThumb''',
-                                            ),
+                                                cardGetDrinkByIdResponse,
+                                                r'''$.drinks[:1].strDrinkThumb'''),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -608,16 +564,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       );
                                     },
                                   ),
-                                ),
+                                )
                               ],
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
-                  ),
+                  )
                 ],
-              ),
+              )
             ],
           ),
         ),

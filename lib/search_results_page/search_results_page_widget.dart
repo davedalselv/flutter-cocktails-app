@@ -1,22 +1,20 @@
 import '../backend/api_requests/api_calls.dart';
 import '../cocktail_page/cocktail_page_widget.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../home_page/home_page_widget.dart';
-import '../search_results_page/search_results_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchResultsPageWidget extends StatefulWidget {
-  const SearchResultsPageWidget({
-    Key? key,
+  SearchResultsPageWidget({
+    Key key,
     this.searchTerm,
   }) : super(key: key);
 
-  final String? searchTerm;
+  final String searchTerm;
 
   @override
   _SearchResultsPageWidgetState createState() =>
@@ -24,7 +22,7 @@ class SearchResultsPageWidget extends StatefulWidget {
 }
 
 class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
-  TextEditingController? textController;
+  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -34,16 +32,10 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
   }
 
   @override
-  void dispose() {
-    textController?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ApiCallResponse>(
-      future: GetDrinksCall.call(
-        s: textController!.text,
+    return FutureBuilder<dynamic>(
+      future: getDrinksCall(
+        s: textController.text,
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -53,16 +45,16 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
               width: 50,
               height: 50,
               child: SpinKitFadingFour(
-                color: FlutterFlowTheme.of(context).tertiaryColor,
+                color: FlutterFlowTheme.tertiaryColor,
                 size: 50,
               ),
             ),
           );
         }
-        final searchResultsPageGetDrinksResponse = snapshot.data!;
+        final searchResultsPageGetDrinksResponse = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
+          backgroundColor: FlutterFlowTheme.secondaryColor,
           body: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -78,15 +70,7 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            buttonSize: 46,
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: FlutterFlowTheme.of(context).tertiaryColor,
-                              size: 24,
-                            ),
+                          IconButton(
                             onPressed: () async {
                               await Navigator.push(
                                 context,
@@ -98,7 +82,13 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                 ),
                               );
                             },
-                          ),
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: FlutterFlowTheme.tertiaryColor,
+                              size: 24,
+                            ),
+                            iconSize: 24,
+                          )
                         ],
                       ),
                       Row(
@@ -125,15 +115,14 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 SearchResultsPageWidget(
-                                              searchTerm: textController!.text,
+                                              searchTerm: textController.text,
                                             ),
                                           ),
                                         );
                                       },
                                       child: Icon(
                                         Icons.search,
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiaryColor,
+                                        color: FlutterFlowTheme.tertiaryColor,
                                         size: 24,
                                       ),
                                     ),
@@ -142,7 +131,6 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 0, 0),
                                         child: TextFormField(
-                                          controller: textController,
                                           onFieldSubmitted: (_) async {
                                             await Navigator.push(
                                               context,
@@ -150,25 +138,24 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                                 builder: (context) =>
                                                     SearchResultsPageWidget(
                                                   searchTerm:
-                                                      textController!.text,
+                                                      textController.text,
                                                 ),
                                               ),
                                             );
                                           },
+                                          controller: textController,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily:
-                                                          'Playfair Display',
-                                                      color: Color(0xFF95A1AC),
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
                                             hintText: 'Search name..',
+                                            hintStyle: FlutterFlowTheme
+                                                .bodyText1
+                                                .override(
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0x00000000),
@@ -191,50 +178,25 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                          style: FlutterFlowTheme.bodyText1
                                               .override(
-                                                fontFamily: 'Roboto',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .tertiaryColor,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            fontFamily: 'Roboto',
+                                            color:
+                                                FlutterFlowTheme.tertiaryColor,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
                             ),
-                          ),
+                          )
                         ],
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -242,10 +204,13 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
               Expanded(
                 child: Builder(
                   builder: (context) {
-                    final searchResults = getJsonField(
-                      searchResultsPageGetDrinksResponse.jsonBody,
-                      r'''$.drinks''',
-                    ).toList().take(20).toList();
+                    final searchResults = (getJsonField(
+                                    searchResultsPageGetDrinksResponse,
+                                    r'''$.drinks''')
+                                ?.toList() ??
+                            [])
+                        .take(20)
+                        .toList();
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
@@ -258,30 +223,21 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(0),
                           ),
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: GetDrinkByIdCall.call(
+                          child: FutureBuilder<dynamic>(
+                            future: getDrinkByIdCall(
                               i: getJsonField(
-                                searchResultsItem,
-                                r'''$.idDrink''',
-                              ).toString(),
+                                      searchResultsItem, r'''$.idDrink''')
+                                  .toString(),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
                                 return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: SpinKitFadingFour(
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
-                                      size: 50,
-                                    ),
-                                  ),
+
                                 );
                               }
                               final containerGetDrinkByIdResponse =
-                                  snapshot.data!;
+                                  snapshot.data;
                               return InkWell(
                                 onTap: () async {
                                   await Navigator.push(
@@ -333,9 +289,8 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                                   BorderRadius.circular(60),
                                               child: CachedNetworkImage(
                                                 imageUrl: getJsonField(
-                                                  searchResultsItem,
-                                                  r'''$.strDrinkThumb''',
-                                                ),
+                                                    searchResultsItem,
+                                                    r'''$.strDrinkThumb'''),
                                                 width: 100,
                                                 height: 100,
                                                 fit: BoxFit.cover,
@@ -355,21 +310,18 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                                     children: [
                                                       Text(
                                                         getJsonField(
-                                                          searchResultsItem,
-                                                          r'''$.strDrink''',
-                                                        ).toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Open Sans',
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
+                                                                searchResultsItem,
+                                                                r'''$.strDrink''')
+                                                            .toString(),
+                                                        style: FlutterFlowTheme
+                                                            .bodyText2
+                                                            .override(
+                                                          fontFamily:
+                                                              'Open Sans',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
                                                       Padding(
                                                         padding:
@@ -380,7 +332,8 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Padding(
+                                                              if(getJsonField(searchResultsItem, r'''$.strIBA''').toString() != 'null')
+                                                                Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
@@ -392,52 +345,44 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                                                 valueOrDefault<
                                                                     String>(
                                                                   getJsonField(
-                                                                    searchResultsItem,
-                                                                    r'''$.strIBA''',
-                                                                  ).toString(),
+                                                                          searchResultsItem,
+                                                                          r'''$.strIBA''')
+                                                                      .toString(),
                                                                   'A classic',
                                                                 ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: FlutterFlowTheme
                                                                     .bodyText2
                                                                     .override(
-                                                                      fontFamily:
-                                                                          'Roboto',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .tertiaryColor,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
+                                                                  fontFamily:
+                                                                      'Roboto',
+                                                                  color: FlutterFlowTheme
+                                                                      .tertiaryColor,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
                                                               ),
-                                                            ),
+                                                            )
                                                           ],
                                                         ),
                                                       ),
                                                       Text(
                                                         getJsonField(
-                                                          searchResultsItem,
-                                                          r'''$.strCategory''',
-                                                        ).toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .tertiaryColor,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                      ),
+                                                                searchResultsItem,
+                                                                r'''$.strCategory''')
+                                                            .toString(),
+                                                        style: FlutterFlowTheme
+                                                            .bodyText2
+                                                            .override(
+                                                          fontFamily: 'Roboto',
+                                                          color: FlutterFlowTheme
+                                                              .tertiaryColor,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )
                                                     ],
                                                   ),
                                                 ),
@@ -445,11 +390,10 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                                             ),
                                             Icon(
                                               Icons.arrow_forward_ios_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                               size: 24,
-                                            ),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -464,7 +408,7 @@ class _SearchResultsPageWidgetState extends State<SearchResultsPageWidget> {
                     );
                   },
                 ),
-              ),
+              )
             ],
           ),
         );
